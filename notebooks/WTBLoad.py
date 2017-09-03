@@ -10,3 +10,10 @@ def load():
     data = json.loads(contents.decode('utf-8'))
 
     return pd.read_json(contents)
+
+def load_frame():
+    df = load()
+    x = df.unstack().to_frame()
+    x.reset_index(inplace=True)
+    x.rename(columns={'level_0':'addition','level_1':'style',0:'vote'}, inplace=True)
+    return x
